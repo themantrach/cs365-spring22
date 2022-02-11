@@ -1,27 +1,34 @@
+import numpy as np
+import pandas as pd
+import random
+from string import punctuation
+from collections import OrderedDict
+
 def load(path):
 	df = None
-	'''YOUR CODE HERE'''
-
-
-	'''END'''
+	df = pd.read_csv("TRAIN_balanced_ham_spam.csv")
 	return df
 
 def prior(df):
 	ham_prior = 0
 	spam_prior =  0
-	'''YOUR CODE HERE'''
-
-
-	'''END'''
+	ham_prior = df["r"].value_counts()[0] / (df.shape[0])
+	spam_prior = df["r"].value_counts[1] / (df.shape[0])
 	return ham_prior, spam_prior
 
 def likelihood(df):
-	ham_like_dict = {}
-	spam_like_dict = {}
-	'''YOUR CODE HERE'''
-
-	'''END'''
-
+	ham_likelihood = {}
+	spam_likeihood= {}
+	for i in range(df["r"].value_counts()[0]):
+    		val = df.iloc[i,3].split()
+			email_list = list(OrderedDict.fromkeys(val))
+			for n in email_list:
+    			if n.lower() not in ham_likelihood and n not in punctuation:
+    				ham_likelihood[n] = 1
+				elif n.lower() in ham_likelihood:
+    					ham_likelihood[n] = ham_likelihood.get(n) + 1
+	
+    				
 	return ham_like_dict, spam_like_dict
 
 def predict(ham_prior, spam_prior, ham_like_dict, spam_like_dict, text):
@@ -74,5 +81,7 @@ def metrics(ham_prior, spam_prior, ham_dict, spam_dict, df):
     return acc, precision, recall
     
 if __name__ == "__main__":
-	'''YOUR CODE HERE'''
+	df=load(1)
+	ham_prior, spam_prior = prior(df)
+	ham_
 	#this cell is for your own testing of the functions above
