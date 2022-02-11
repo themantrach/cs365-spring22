@@ -40,7 +40,7 @@ def likelihood(df):
 	for i in spam_likelihood:
     		spam_likelihood[i] = spam_likelihood.get(i) / (df["r"].value_counts()[0])
     						
-	return ham_like_dict, spam_like_dict
+	return ham_likelihood, spam_likelihood
 
 def predict(ham_prior, spam_prior, ham_like_dict, spam_like_dict, text):
 	'''
