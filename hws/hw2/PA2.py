@@ -59,7 +59,7 @@ def predict(ham_prior, spam_prior, ham_like_dict, spam_like_dict, text):
 			else:
 					ham_likely = ham_likely + np.log(0.0001)
 	for i in text: 
-		if i in spam_like_dict and word not in ok_text:
+		if i in spam_like_dict and i not in ok_text:
 				spam_likely += np.log(spam_like_dict.get(i))
 		else:
 				spam_likely += np.log(0.0001)
