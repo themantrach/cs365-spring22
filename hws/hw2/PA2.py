@@ -63,9 +63,7 @@ def predict(ham_prior, spam_prior, ham_like_dict, spam_like_dict, text):
     			spam_likely += np.log(spam_like_dict.get(i))
 		else:
     			spam_likely += np.log(0.0001)
-	
 
-	'''YOUR CODE HERE'''
 	#ham_posterior = posterior probability that the email is normal/ham
 	ham_posterior = None
 	ham_posterior = ham_likely + np.log(ham_prior)
@@ -76,7 +74,8 @@ def predict(ham_prior, spam_prior, ham_like_dict, spam_like_dict, text):
 
 	if spam_posterior > ham_posterior:
     		ham_spam_decision = 1
-
+	else:
+    		ham_spam_decision = 0
 	'''END'''
 	return ham_spam_decision
 
