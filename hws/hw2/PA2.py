@@ -27,14 +27,17 @@ def likelihood(df):
     				ham_likelihood[n] = 1
 				elif n.lower() in ham_likelihood:
     					ham_likelihood[n] = ham_likelihood.get(n) + 1
-	
-    				
+	for i in ham_likelihood:
+    		ham_likelihood[i] = ham_likelihood.get(i) / df["r"].value_counts()[0]
+	for i in range(df["r"].value_counts()[0],df.shape[0]):
+    		
 	return ham_like_dict, spam_like_dict
 
 def predict(ham_prior, spam_prior, ham_like_dict, spam_like_dict, text):
 	'''
 	prediction function that uses prior and likelihood structure to compute proportional posterior for a single line of text
 	'''
+
 	#ham_spam_decision = 1 if classified as spam, 0 if classified as normal/ham
 	ham_spam_decision = None
 
