@@ -18,7 +18,7 @@ def prior(df):
 
 def likelihood(df):
 	ham_likelihood = {}
-	spam_likeihood= {}
+	spam_likelihood= {}
 	for i in range(df["r"].value_counts()[0]):
     		val = df.iloc[i,3].split()
 			email_list = list(OrderedDict.fromkeys(val))
@@ -30,17 +30,32 @@ def likelihood(df):
 	for i in ham_likelihood:
     		ham_likelihood[i] = ham_likelihood.get(i) / df["r"].value_counts()[0]
 	for i in range(df["r"].value_counts()[0],df.shape[0]):
-    		
+    		val = df.iloc[i,3].split()
+			email_list = list(OrderedDict.fromkeys(val))
+			for n in email_list:
+    				if n not in punctuation and n.lower() not in spam_likelihood:
+    						spam_likelihood[n] = 1
+					elif n.lower() in spam_likelihood:
+    						spam_likelihood[n] = spam_likelihood.get(n) + 1
+	for i in spam_likelihood:
+    		spam_likelihood[i] = spam_likelihood.get(i) / (df["r"].value_counts()[0])
+    						
 	return ham_like_dict, spam_like_dict
 
 def predict(ham_prior, spam_prior, ham_like_dict, spam_like_dict, text):
 	'''
 	prediction function that uses prior and likelihood structure to compute proportional posterior for a single line of text
 	'''
-
+	ham_likely = 0
+	spam_likely = 0
+	#so we can access and assess each word individually
+	text=text.split()
+	ok_text = ["the","a","of","is","this","to","for","with","i","on","then"]
 	#ham_spam_decision = 1 if classified as spam, 0 if classified as normal/ham
 	ham_spam_decision = None
-
+	for i in text:
+    		if i in ham_like_dict and i not in ok_text:
+    				ham_likely += ham_likely[]
 
 
 
